@@ -1,34 +1,86 @@
-*{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Varela Round', sans-serif; color: white;}
-
-header{
-    background-color: #2D3336;
-    text-align: center;
+:root {
+  --mainColor: #eff1f3;
+  --secondaryColor: #525151;
 }
 
-main{
-    height: 90vh;
-    background-color: #202629;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Varela Round", sans-serif;
 }
-footer{background-color: #1C2022; text-align: center;}
 
-button, input{color: black;}
-
-form{
-    display: flex;
-    flex-direction: column;
-    border: solid 3px #1C2022;
-    border-radius: 20px;
-    padding: 3rem;
-    margin-bottom: 3%;
+header {
+  color: white;
+  background-color: var(--secondaryColor);
+  text-align: center;
+  border-bottom: solid 4px black;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
-.to-do-list{
-    border: solid 3px #1C2022;
-    border-radius: 20px;
-    padding-bottom: 20px;
-    width: 30%;
-    text-align: center;
+
+main {
+  min-height: 92vh;
+  background-color: var(--mainColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main p {
+  margin-top: 2%;
+}
+footer {
+  background-color: #1c2022;
+  text-align: center;
+  color: white;
+}
+
+button {
+  background-color: var(--secondaryColor);
+  color: white;
+  border: solid 0px;
+  border-radius: 15px;
+  margin-top: 15px;
+  padding: 6px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  border: solid 3px #1c2022;
+  border-radius: 20px;
+  padding: 3rem;
+  margin-bottom: 3%;
+}
+label {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+.sign label {
+  justify-content: end;
+}
+.to-do-list {
+  border: solid 3px #1c2022;
+  border-radius: 20px;
+  padding-bottom: 20px;
+  width: 30%;
+  margin-bottom: 2%;
+}
+.to-do-list h2 {
+  margin-left: 5%;
+  margin-bottom: 2%;
+}
+
+.sign {
+  width: 50vw;
+  display: flex;
+  justify-content: space-between;
+}
+/* JAVASCRIPT DOM */
+
+.taskDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 10px;
 }

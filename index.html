@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stylesheets/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" />
     <title>Note-it!</title>
-</head>
-<body>
+  </head>
+  <body>
     <header><h1>Note-It!</h1></header>
     <main>
-        <p>¿Tiene alguna deber pendiente? ¡Anotelo!</p>
-        <form>
-            <label>Anote su deber: <input type="text" id="task"/></label>
-            <label>Ponga una fecha limite <i>(Opcional)</i>: <input type="date" id="date"/></label>
-            <button type="button" id="notebutton">Note It!</button>
-        </form> 
-
-        <div class="to-do-list">
-            <h2>To-Do List</h2>
+      <div class="sign">
+        <div class="signIn">
+          <p class="signInTitle">Inicia sesion</p>
+          <form>
+            <label>Usuario: <input type="text" id="signInUser" /></label>
+            <label>Contraseña: <input type="password" id="signInPass" /></label>
+            <button type="button" id="signInButton">Iniciar sesion</button>
+          </form>
         </div>
-        
-        
+        <div class="signUp">
+          <p class="signUpTitle">Registrate</p>
+          <form>
+            <label>Usuario: <input type="text" id="signUpUser" /></label>
+            <label>Contraseña: <input type="password" id="signUpPass" /></label>
+            <button type="button" id="signUpButton">Registrarse</button>
+          </form>
+        </div>
+      </div>
+      <p>¿Tiene alguna deber pendiente? ¡Anotelo!</p>
+      <form>
+        <label>Anote su deber: <input type="text" id="task" /></label>
+        <label
+          >Ponga una fecha limite <i>(Opcional)</i>:
+          <input type="date" id="date"
+        /></label>
+        <button type="button" id="notebutton">Note It!</button>
+      </form>
+
+      <div class="to-do-list">
+        <h2>To-Do List</h2>
+      </div>
     </main>
     <footer>
-        <p> &copy; 2022 - Benjamin Romero Medina</p>
+      <p>&copy; 2022 - Benjamin Romero Medina</p>
     </footer>
     <script src="js/app.js"></script>
-</body>
+  </body>
 </html>

@@ -1,113 +1,157 @@
 // /*El simulador que tengo pensado hacer es una aplicacion de notas. En esta aplicacion, el usuario podrá anotar deberes, tareas u cosas importantes para recordar. En un futuro, me gustaria agregar la posibilidad de que el usuario ingrese una fecha limite para la conclusión de dicha tarea (ya lo hice xd) */
 
-// // CLASES
-
-// class Task{
-//     constructor(name, date){
-//         this.name = name;
-//         this.date = date;
-//     }
-// }
-
-// //FUNCIONES
-
-// function askContinue (){
-//     let question = prompt("¿Desea agregar una nueva tarea?\nPor favor, escriba 1 (si) o 2(no)") /*Falta validaciones*/
-//     if(question == 1) return true
-//     else return false
-// }
-
-// function requestTask(array){
-
-//     let task;
-//     const taskName = prompt("Por favor, escriba una tarea:");
-
-//     if(prompt("Desea agregar una fecha limite? 1(si) - 2(no)") == 1){
-//         taskDayLimit = parseInt(prompt("Ingrese el digito del dia limite:"))
-//         taskMonthLimit = parseInt(prompt("Ingrese el digito del mes limite:"))
-//         taskYearLimit = parseInt(prompt("Ingrese el digito del año limite:"))
-
-//         task = new Task(
-//             taskName, 
-//             new Date(taskYearLimit, taskMonthLimit-1, taskDayLimit) 
-//         )
-
-//     }
-//     else {task = new Task(taskName, null)}
-
-//     array.push(task)
-// }
-
-// //DECLARACIÓN DE VARIABLES
-
-// let cont = true
-// let list = []
-
-// //INICIO DEL PROGRAMA
-
-// alert("Bievenido a Note-it!")
-
-// while(cont){
-//     requestTask(list)
-
-//     if(askContinue()) continue
-//     else cont = false
-// }
-
-// let seeList = prompt("¿Desea visualizar su listado de tareas?\nPor favor, escriba 1(si) o 2(no)"); /*Falta validaciones*/
-
-// if(seeList == 1)
-// {
-//     let main = document.querySelector("main");
-//     let contenedor = document.createElement("div");
-//     contenedor.innerHTML = "<h2>To-Do List<h2/>";
-
-//     list.forEach((element)=>{
-
-//         if(element.date != null){
-//             contenedor.innerHTML += `<p>${element.name}\t->\t${element.date.toDateString()}</p>`;
-//         }
-//         else{
-//             contenedor.innerHTML += `<p>${element.name}\t->\tSin fecha limite</p>`;
-//         }
-        
-//     });
-
-//     main.appendChild(contenedor);
-
-//     alert("Gracias por elegirnos!");
-// }
-// else{
-//     alert("Gracias por elegirnos!");
-// }
-
 let container = document.querySelector(".to-do-list");
 let button = document.querySelector("#notebutton");
 let taskName = document.querySelector("#task");
 let taskDate = document.querySelector("#date");
+let signInButton = document.querySelector("#signInButton");
+let signUpButton = document.querySelector("#signUpButton");
+let signUpUser = document.querySelector("#signUpUser");
+let signUpPass = document.querySelector("#signUpPass");
+let signInUser = document.querySelector("#signInUser");
+let signInPass = document.querySelector("#signInPass");
+let inSession = false;
+let sessionKey;
 
-button.addEventListener('click', addTask);
+button.addEventListener("click", addTask);
+signUpButton.addEventListener("click", signUp);
+signInButton.addEventListener("click", signIn);
 
-function addTask(){
-    if (taskName.value != "") {
-        if (taskDate.valueAsDate == null) {
-            let p = document.createElement("p");
-            p.innerText = `${taskName.value} -> Fecha de limite: Sin fecha de limite`;
-            container.appendChild(p);
-
-        } else {
-            let currentDate = new Date();
-            if (taskDate.valueAsDate < currentDate) {
-                alert("No puedes asignar una tarea para una fecha pasada, crack!")
-            } else {
-                let p = document.createElement("p");
-                p.innerText = `${taskName.value} -> Fecha de limite: ${taskDate.value}`;
-                container.appendChild(p);
-            }
-        }
-
-    } else {
-        alert("Le debes asignar un nombre a tu tarea antes de asignarla, genio!")
-    }
+class userInfo {
+  constructor(userName, userPass, userTasks) {
+    this.userName = userName;
+    this.userPass = userPass;
+    this.userTasks = userTasks;
+  }
 }
 
+function signUp() {
+  if (signUpUser.value == "" || signUpPass.value == "") {
+    alert("Necesitas completar todos los campos para poder registrarse");
+  } else {
+    let userExists = false;
+
+    for (let i = 0; i < localStorage.length; i++)
+      if (signUpUser.value == localStorage.key(i)) userExists = true;
+
+    if (userExists) {
+      alert("Este nombre de usuario ya se encuentra registrado:(");
+    } else {
+      let usuario = new userInfo(signUpUser.value, signUpPass.value, []);
+      localStorage.setItem(signUpUser.value, JSON.stringify(usuario));
+      alert("Cuenta registrada! Ahora inicia sesion y empieza a anotar <3");
+    }
+  }
+}
+
+function signIn() {
+  if (signInUser.value == "" || signInPass.value == "") {
+    alert("Necesitas completar todos los campos para poder iniciar sesion");
+  } else {
+    let userExists = false;
+    for (let i = 0; i < localStorage.length; i++)
+      if (signInUser.value == localStorage.key(i)) {
+        userExists = true;
+        sessionKey = i;
+      }
+
+    if (!userExists) {
+      alert("Parece que este usuario no existe:(");
+    } else {
+      let user = JSON.parse(localStorage.getItem(signInUser.value));
+      if (signInPass.value == user.userPass) {
+        inSession = true;
+        LoadToDoList();
+        alert(`¡Bienvenido, ${signInUser.value}!`);
+      } else {
+        alert("Contraseña incorrecta!");
+      }
+    }
+  }
+}
+
+function LoadToDoList() {
+  let userInfo = JSON.parse(localStorage.getItem(localStorage.key(sessionKey)));
+  container.innerHTML = "<h2>To-Do List</h2>";
+  for (let i = 0; i < userInfo.userTasks.length; i++) {
+    let div = document.createElement("div");
+    div.className = "taskDiv";
+    div.innerHTML = `
+      <div><b>${userInfo.userTasks[i][0]}</b></div>
+      <div>Fecha limite: ${
+        userInfo.userTasks[i][1] != null
+          ? userInfo.userTasks[i][1]
+          : "Sin fecha limite :D"
+      }</div>
+      `;
+    container.appendChild(div);
+  }
+}
+
+function addTask() {
+  if (inSession) {
+    if (taskName.value != "") {
+      if (taskDate.valueAsDate == null) {
+        let userInfo = JSON.parse(
+          localStorage.getItem(localStorage.key(sessionKey))
+        );
+        let div = document.createElement("div");
+        div.className = "taskDiv";
+        div.innerHTML = `
+                  <div><b>${taskName.value}</b></div>
+                  <div>Fecha limite: Sin fecha limite :D</div>
+                  `;
+        container.appendChild(div);
+        userInfo.userTasks.push([taskName.value, null]);
+        localStorage.setItem(userInfo.userName, JSON.stringify(userInfo));
+      } else {
+        let currentDate = new Date();
+        if (taskDate.valueAsDate < currentDate) {
+          alert("No puedes asignar una tarea para una fecha pasada, crack!");
+        } else {
+          let userInfo = JSON.parse(
+            localStorage.getItem(localStorage.key(sessionKey))
+          );
+          let div = document.createElement("div");
+          div.className = "taskDiv";
+          div.innerHTML = `
+                      <div><b>${taskName.value}</b></div>
+                      <div>Fecha limite: ${taskDate.value}</div>
+                      `;
+          container.appendChild(div);
+          userInfo.userTasks.push([taskName.value, taskDate.value]);
+          localStorage.setItem(userInfo.userName, JSON.stringify(userInfo));
+        }
+      }
+    } else {
+      alert("Le debes asignar un nombre a tu tarea antes de asignarla, genio!");
+    }
+  } else {
+    if (taskName.value != "") {
+      if (taskDate.valueAsDate == null) {
+        let div = document.createElement("div");
+        div.className = "taskDiv";
+        div.innerHTML = `
+                  <div><b>${taskName.value}</b></div>
+                  <div>Fecha limite: Sin fecha limite :D</div>
+                  `;
+        container.appendChild(div);
+      } else {
+        let currentDate = new Date();
+        if (taskDate.valueAsDate < currentDate) {
+          alert("No puedes asignar una tarea para una fecha pasada, crack!");
+        } else {
+          let div = document.createElement("div");
+          div.className = "taskDiv";
+          div.innerHTML = `
+                      <div><b>${taskName.value}</b></div>
+                      <div>Fecha limite: ${taskDate.value}</div>
+                      `;
+          container.appendChild(div);
+        }
+      }
+    } else {
+      alert("Le debes asignar un nombre a tu tarea antes de asignarla, genio!");
+    }
+  }
+}
