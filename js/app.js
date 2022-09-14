@@ -32,8 +32,7 @@ function signUp() {
     let userExists = false;
 
     for (let i = 0; i < localStorage.length; i++)
-      if (signUpUser.value == localStorage.key(i)) userExists = true;
-
+      signUpUser.value == localStorage.key(i) && (userExists = true); //AND
     if (userExists) {
       alert("Este nombre de usuario ya se encuentra registrado:(");
     } else {
