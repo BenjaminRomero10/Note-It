@@ -1,6 +1,10 @@
 :root {
   --mainColor: #eff1f3;
   --secondaryColor: #525151;
+  --toastColor: #30c024;
+  --toastError: #c02424;
+  --main-modal-color: rgba(247, 222, 30, 0.85);
+  --second-modal-color: rgba(34, 34, 34, 0.85);
 }
 
 * {
@@ -14,7 +18,7 @@ header {
   color: white;
   background-color: var(--secondaryColor);
   text-align: center;
-  border-bottom: solid 4px black;
+  border-bottom: solid 5px black;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -35,7 +39,7 @@ footer {
   color: white;
 }
 
-button {
+.formButton {
   background-color: var(--secondaryColor);
   color: white;
   border: solid 0px;
@@ -48,7 +52,7 @@ form {
   flex-direction: column;
   border: solid 3px #1c2022;
   border-radius: 20px;
-  padding: 3rem;
+  padding: 1rem;
   margin-bottom: 3%;
 }
 label {
@@ -56,14 +60,15 @@ label {
   justify-content: space-between;
   margin: 5px;
 }
-.sign label {
-  justify-content: end;
+
+.formTaskCont {
+  font-size: 0.5rem;
 }
 .to-do-list {
   border: solid 3px #1c2022;
   border-radius: 20px;
   padding-bottom: 20px;
-  width: 30%;
+  width: 80%;
   margin-bottom: 2%;
 }
 .to-do-list h2 {
@@ -71,11 +76,96 @@ label {
   margin-bottom: 2%;
 }
 
-.sign {
-  width: 50vw;
-  display: flex;
-  justify-content: space-between;
+.panel form {
+  background-color: var(--mainColor);
 }
+.panel p {
+  color: var(--mainColor);
+}
+.dateTaskCont {
+  text-align: start;
+}
+.panel-btn {
+  position: fixed;
+  z-index: 999;
+  bottom: 1vh;
+  right: 1vw;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondaryColor);
+}
+.panel {
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--second-modal-color);
+  transition: transform 0.3s ease;
+  transform: translate(0, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.panel.is-active {
+  transform: translate(0, 0);
+}
+
+.signIn,
+.signUp {
+  width: 80%;
+}
+
+@media only screen and (min-width: 768px) {
+  form {
+    padding: 1.5rem;
+  }
+  .formTaskCont {
+    font-size: 1rem;
+  }
+  .signIn,
+  .signUp {
+    width: 30%;
+    margin: 0px 30px;
+  }
+
+  .to-do-list {
+    width: 40%;
+  }
+  .sign {
+    width: 50vw;
+    justify-content: space-between;
+  }
+  .hamburger {
+    display: none;
+  }
+  .panel {
+    background-color: var(--mainColor);
+    position: relative;
+    transform: none;
+    width: 100%;
+    flex-direction: row;
+  }
+  .sign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .panel form {
+    background-color: none;
+  }
+  .panel p {
+    color: black;
+  }
+}
+
 /* JAVASCRIPT DOM */
 
 .taskDiv {

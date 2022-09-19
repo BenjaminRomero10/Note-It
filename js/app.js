@@ -1,3 +1,5 @@
+import hamburgerMenu from "./hamburger.js";
+
 // /*El simulador que tengo pensado hacer es una aplicacion de notas. En esta aplicacion, el usuario podrá anotar deberes, tareas u cosas importantes para recordar. En un futuro, me gustaria agregar la posibilidad de que el usuario ingrese una fecha limite para la conclusión de dicha tarea (ya lo hice xd) */
 
 let container = document.querySelector(".to-do-list");
@@ -17,6 +19,9 @@ button.addEventListener("click", addTask);
 signUpButton.addEventListener("click", signUp);
 signInButton.addEventListener("click", signIn);
 
+document.addEventListener("DOMContentLoaded", (e) => {
+  hamburgerMenu(".panel-btn", ".panel", "#signInButton");
+});
 class userInfo {
   constructor(userName, userPass, userTasks) {
     this.userName = userName;
@@ -27,25 +32,53 @@ class userInfo {
 
 function signUp() {
   if (signUpUser.value == "" || signUpPass.value == "") {
-    alert("Necesitas completar todos los campos para poder registrarse");
+    Swal.fire({
+      icon: "error",
+      title: "Hey!",
+      text: "Necesitas completar todos los campos para poder registrarte",
+      confirmButtonColor: "var(--secondaryColor)",
+      timer: 3000,
+      timerProgressBar: true,
+    });
   } else {
     let userExists = false;
 
     for (let i = 0; i < localStorage.length; i++)
       signUpUser.value == localStorage.key(i) && (userExists = true); //AND
     if (userExists) {
-      alert("Este nombre de usuario ya se encuentra registrado:(");
+      Swal.fire({
+        icon: "error",
+        title: "Lo sentimos:(",
+        text: "Este nombre de usuario ya se encuentra registrado",
+        confirmButtonColor: "var(--secondaryColor)",
+        timer: 3000,
+        timerProgressBar: true,
+      });
     } else {
       let usuario = new userInfo(signUpUser.value, signUpPass.value, []);
       localStorage.setItem(signUpUser.value, JSON.stringify(usuario));
-      alert("Cuenta registrada! Ahora inicia sesion y empieza a anotar <3");
+      Swal.fire({
+        icon: "success",
+        title: "Cuenta registrada!",
+        text: "Ahora inicia sesion y empieza a anotar <3",
+        confirmButtonColor: "var(--secondaryColor)",
+        timer: 3000,
+        timerProgressBar: true,
+      });
     }
   }
 }
 
 function signIn() {
   if (signInUser.value == "" || signInPass.value == "") {
-    alert("Necesitas completar todos los campos para poder iniciar sesion");
+    Swal.fire({
+      icon: "error",
+      title: "Hey!",
+      text: "Necesitas completar todos los campos para poder iniciar sesion",
+      confirmButtonColor: "var(--secondaryColor)",
+      timer: 3000,
+      timerProgressBar: true,
+    });
   } else {
     let userExists = false;
     for (let i = 0; i < localStorage.length; i++)
@@ -55,15 +88,36 @@ function signIn() {
       }
 
     if (!userExists) {
-      alert("Parece que este usuario no existe:(");
+      Swal.fire({
+        icon: "error",
+        title: "Lo sentimos:(",
+        text: "Parece que este usuario no existe",
+        confirmButtonColor: "var(--secondaryColor)",
+        timer: 3000,
+        timerProgressBar: true,
+      });
     } else {
       let user = JSON.parse(localStorage.getItem(signInUser.value));
       if (signInPass.value == user.userPass) {
         inSession = true;
         LoadToDoList();
-        alert(`¡Bienvenido, ${signInUser.value}!`);
+        Swal.fire({
+          icon: "success",
+          title: `¡Bienvenido, ${signInUser.value}!`,
+          text: "Puedes empezar a anotar tus tareas!",
+          confirmButtonColor: "var(--secondaryColor)",
+          timer: 3000,
+          timerProgressBar: true,
+        });
       } else {
-        alert("Contraseña incorrecta!");
+        Swal.fire({
+          icon: "error",
+          title: "Hey!",
+          text: "Constraseña incorrecta",
+          confirmButtonColor: "var(--secondaryColor)",
+          timer: 3000,
+          timerProgressBar: true,
+        });
       }
     }
   }
@@ -103,10 +157,19 @@ function addTask() {
         container.appendChild(div);
         userInfo.userTasks.push([taskName.value, null]);
         localStorage.setItem(userInfo.userName, JSON.stringify(userInfo));
+        Toastify({
+          text: "Tarea agregada",
+          duration: 3000,
+          style: { background: "var(--toastColor)" },
+        }).showToast();
       } else {
         let currentDate = new Date();
         if (taskDate.valueAsDate < currentDate) {
-          alert("No puedes asignar una tarea para una fecha pasada, crack!");
+          Toastify({
+            text: "Debes asignar una fecha valida, crack!",
+            duration: 3000,
+            style: { background: "var(--toastError)" },
+          }).showToast();
         } else {
           let userInfo = JSON.parse(
             localStorage.getItem(localStorage.key(sessionKey))
@@ -120,10 +183,19 @@ function addTask() {
           container.appendChild(div);
           userInfo.userTasks.push([taskName.value, taskDate.value]);
           localStorage.setItem(userInfo.userName, JSON.stringify(userInfo));
+          Toastify({
+            text: "Tarea agregada",
+            duration: 3000,
+            style: { background: "var(--toastColor)" },
+          }).showToast();
         }
       }
     } else {
-      alert("Le debes asignar un nombre a tu tarea antes de asignarla, genio!");
+      Toastify({
+        text: "Debes asignar un nombre a la tarea, crack!",
+        duration: 3000,
+        style: { background: "var(--toastError)" },
+      }).showToast();
     }
   } else {
     if (taskName.value != "") {
@@ -135,10 +207,19 @@ function addTask() {
                   <div>Fecha limite: Sin fecha limite :D</div>
                   `;
         container.appendChild(div);
+        Toastify({
+          text: "Tarea agregada",
+          duration: 3000,
+          style: { background: "var(--toastColor)" },
+        }).showToast();
       } else {
         let currentDate = new Date();
         if (taskDate.valueAsDate < currentDate) {
-          alert("No puedes asignar una tarea para una fecha pasada, crack!");
+          Toastify({
+            text: "Debes asignar una fecha valida, crack!",
+            duration: 3000,
+            style: { background: "var(--toastError)" },
+          }).showToast();
         } else {
           let div = document.createElement("div");
           div.className = "taskDiv";
@@ -147,10 +228,19 @@ function addTask() {
                       <div>Fecha limite: ${taskDate.value}</div>
                       `;
           container.appendChild(div);
+          Toastify({
+            text: "Tarea agregada",
+            duration: 3000,
+            style: { background: "var(--toastColor)" },
+          }).showToast();
         }
       }
     } else {
-      alert("Le debes asignar un nombre a tu tarea antes de asignarla, genio!");
+      Toastify({
+        text: "Debes asignar un nombre a la tarea, crack!",
+        duration: 3000,
+        style: { background: "var(--toastError)" },
+      }).showToast();
     }
   }
 }
