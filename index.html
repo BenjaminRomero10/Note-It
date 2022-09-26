@@ -24,7 +24,15 @@
     <title>Note-it!</title>
   </head>
   <body>
-    <header><h1>Note-It!</h1></header>
+    <header>
+      <h1>Note-It!</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Note-List</a></li>
+          <li><a href="pages/random.html">?</a></li>
+        </ul>
+      </nav>
+    </header>
     <main>
       <button class="panel-btn hamburger hamburger--spin" type="button">
         <span class="hamburger-box">
@@ -36,7 +44,9 @@
         <div class="signIn">
           <p class="signInTitle">Inicia sesion</p>
           <form>
-            <label>Usuario: <input type="text" id="signInUser" /></label>
+            <label
+              >Usuario: <input type="text" id="signInUser" autocomplete="off"
+            /></label>
             <label>Contraseña: <input type="password" id="signInPass" /></label>
             <button type="button" id="signInButton" class="formButton">
               Iniciar sesion
@@ -46,7 +56,9 @@
         <div class="signUp">
           <p class="signUpTitle">Registrate</p>
           <form>
-            <label>Usuario: <input type="text" id="signUpUser" /></label>
+            <label
+              >Usuario: <input type="text" id="signUpUser" autocomplete="off"
+            /></label>
             <label>Contraseña: <input type="password" id="signUpPass" /></label>
             <button type="button" id="signUpButton" class="formButton">
               Registrarse
@@ -56,7 +68,9 @@
       </div>
       <p>¿Tiene alguna deber pendiente? ¡Anotelo!</p>
       <form class="formTaskCont">
-        <label>Anote su deber: <input type="text" id="task" /></label>
+        <label
+          >Anote su deber: <input type="text" id="task" autocomplete="off"
+        /></label>
         <label
           >Ponga una fecha limite <i>(Opcional)</i>:
           <input type="date" id="date"

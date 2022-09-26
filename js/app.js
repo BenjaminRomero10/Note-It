@@ -1,7 +1,5 @@
 import hamburgerMenu from "./hamburger.js";
 
-// /*El simulador que tengo pensado hacer es una aplicacion de notas. En esta aplicacion, el usuario podrá anotar deberes, tareas u cosas importantes para recordar. En un futuro, me gustaria agregar la posibilidad de que el usuario ingrese una fecha limite para la conclusión de dicha tarea (ya lo hice xd) */
-
 let container = document.querySelector(".to-do-list");
 let button = document.querySelector("#notebutton");
 let taskName = document.querySelector("#task");
@@ -130,7 +128,9 @@ function LoadToDoList() {
     let div = document.createElement("div");
     div.className = "taskDiv";
     div.innerHTML = `
-      <div><b>${userInfo.userTasks[i][0]}</b></div>
+      <div><input type="checkbox" id="${i + 1}"><b>${
+      userInfo.userTasks[i][0]
+    }</b></div>
       <div>Fecha limite: ${
         userInfo.userTasks[i][1] != null
           ? userInfo.userTasks[i][1]
@@ -151,7 +151,9 @@ function addTask() {
         let div = document.createElement("div");
         div.className = "taskDiv";
         div.innerHTML = `
-                  <div><b>${taskName.value}</b></div>
+                  <div><input type="checkbox" id="${
+                    userInfo.userTasks.length + 1
+                  }"><b>${taskName.value}</b></div>
                   <div>Fecha limite: Sin fecha limite :D</div>
                   `;
         container.appendChild(div);
@@ -177,7 +179,9 @@ function addTask() {
           let div = document.createElement("div");
           div.className = "taskDiv";
           div.innerHTML = `
-                      <div><b>${taskName.value}</b></div>
+                      <div><input type="checkbox" id="${
+                        userInfo.userTasks.length + 1
+                      }"><b>${taskName.value}</b></div>
                       <div>Fecha limite: ${taskDate.value}</div>
                       `;
           container.appendChild(div);

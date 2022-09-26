@@ -1,6 +1,6 @@
 :root {
-  --mainColor: #eff1f3;
-  --secondaryColor: #525151;
+  --mainColor: #bdc3c7;
+  --secondaryColor: #e67e22;
   --toastColor: #30c024;
   --toastError: #c02424;
   --main-modal-color: rgba(247, 222, 30, 0.85);
@@ -18,9 +18,30 @@ header {
   color: white;
   background-color: var(--secondaryColor);
   text-align: center;
-  border-bottom: solid 5px black;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom: solid 5px #d35400;
+}
+h1 {
+  padding-top: 5px;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+}
+li:hover {
+  background-color: #d35400;
+}
+a {
+  text-decoration: none;
+  padding: inherit;
+  color: black;
 }
 
 main {
@@ -47,6 +68,9 @@ footer {
   margin-top: 15px;
   padding: 6px;
 }
+.formButton:hover {
+  background-color: #d35400;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -54,6 +78,7 @@ form {
   border-radius: 20px;
   padding: 1rem;
   margin-bottom: 3%;
+  background-color: #ecf0f1;
 }
 label {
   display: flex;
@@ -76,11 +101,11 @@ label {
   margin-bottom: 2%;
 }
 
-.panel form {
-  background-color: var(--mainColor);
+.to-do-list div {
+  font-size: 10px;
 }
 .panel p {
-  color: var(--mainColor);
+  color: white;
 }
 .dateTaskCont {
   text-align: start;
@@ -122,6 +147,54 @@ label {
 .signUp {
   width: 80%;
 }
+#signInButton,
+#signUpButton {
+  background-color: #d35400;
+  border: solid 5px #e67e22;
+}
+
+#signInButton:hover,
+#signUpButton:hover {
+  background-color: #e67e22;
+}
+.nasaContainer,
+.chuckContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.nasaContainer h2 {
+  margin: 10px 0px;
+}
+
+.nasaContainer b {
+  color: #2b57b0;
+}
+
+.NASAPic {
+  margin: 10px 0px;
+  width: 50%;
+}
+.pictureExplanation {
+  padding: 15px;
+  text-align: justify;
+}
+
+.chuckJoke {
+  padding: 10px 20px;
+  text-align: justify;
+}
+
+button[name="chuck"] {
+  margin: 20px;
+  font-size: 40px;
+  border: solid 3px #d35400;
+  border-radius: 15px;
+  background-color: #e67e22;
+}
 
 @media only screen and (min-width: 768px) {
   form {
@@ -138,6 +211,10 @@ label {
 
   .to-do-list {
     width: 40%;
+  }
+
+  .to-do-list div {
+    font-size: 15px;
   }
   .sign {
     width: 50vw;
@@ -163,6 +240,9 @@ label {
   }
   .panel p {
     color: black;
+  }
+  .NASAPic {
+    width: 20%;
   }
 }
 
