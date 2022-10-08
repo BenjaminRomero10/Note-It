@@ -10,6 +10,8 @@ let signUpUser = document.querySelector("#signUpUser");
 let signUpPass = document.querySelector("#signUpPass");
 let signInUser = document.querySelector("#signInUser");
 let signInPass = document.querySelector("#signInPass");
+let panel = document.querySelector(".panel");
+let hamburger = document.querySelector(".hamburger");
 let inSession = false;
 let sessionKey;
 
@@ -98,6 +100,8 @@ function signIn() {
       let user = JSON.parse(localStorage.getItem(signInUser.value));
       if (signInPass.value == user.userPass) {
         inSession = true;
+        panel.className += " hidden";
+        hamburger.className += " hidden";
         LoadToDoList();
         Swal.fire({
           icon: "success",
